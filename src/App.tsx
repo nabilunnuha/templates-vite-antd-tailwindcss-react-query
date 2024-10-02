@@ -3,11 +3,10 @@ import LayoutPage from "./layout/layout";
 import NotFound from "./layout/notFound";
 
 const paths = [
-  '/',
   '/home',
   '/about',
   '/contact',
-  '/development',
+  '/development'
 ]
 
 function App() {
