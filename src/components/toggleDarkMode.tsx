@@ -1,17 +1,19 @@
 import { useTheme } from '../themeProvider';
 import { Button, Tooltip } from 'antd';
 import { MoonOutlined, SunOutlined } from '@ant-design/icons';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface ToggleDarkModeProps {
-    icon?: boolean
-    text?: boolean
+    showIcon?: boolean
+    showText?: boolean
     size?: 'large' | 'middle' | 'small'
     darkText?: string
     lightText?: string
+    darkIcon?: ReactNode
+    lightIcon?: ReactNode
 }
 
-const ToggleDarkMode = ({ icon = true, text = false, size = 'middle', darkText = 'Switch to Light Mode', lightText = 'Switch to Dark Mode' }: ToggleDarkModeProps) => {
+const ToggleDarkMode = ({ showIcon = true, showText = false, size = 'middle', darkText = 'Switch to Light Mode', lightText = 'Switch to Dark Mode', lightIcon = <SunOutlined />, darkIcon = <MoonOutlined /> }: ToggleDarkModeProps) => {
     const { isDark, toggleTheme } = useTheme();
 
     useEffect(() => {
@@ -19,14 +21,14 @@ const ToggleDarkMode = ({ icon = true, text = false, size = 'middle', darkText =
     }, [isDark]);
 
     return (
-        <Tooltip title={!text && isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
+        <Tooltip title={!showText && isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
             <Button
                 onClick={() => toggleTheme(!isDark)}
                 size={size}
-                type={icon ? 'text' : undefined}
-                icon={icon ? isDark ? <SunOutlined /> : <MoonOutlined /> : undefined}
+                type={showIcon ? 'text' : undefined}
+                icon={showIcon ? isDark ? lightIcon : darkIcon : undefined}
             >
-                {text ? isDark ? darkText : lightText : undefined}
+                {showText ? isDark ? darkText : lightText : undefined}
             </Button>
         </Tooltip>
     )
